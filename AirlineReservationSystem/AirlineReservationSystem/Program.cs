@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HawksAvaitionDBContext>(options =>
 {
     options.UseSqlServer(
-        connectionString: "server=SHARKTOP-96\\SQLEXPRESS;database=HawksAviationDb;Trusted_Connection=True" //builder.Configuration["ConnectionString:HawksAviationDB"]
+        connectionString: "server=*********************;database=HawksAviationDb;Trusted_Connection=True" //builder.Configuration["ConnectionString:HawksAviationDB"]
     ); 
 });
 
