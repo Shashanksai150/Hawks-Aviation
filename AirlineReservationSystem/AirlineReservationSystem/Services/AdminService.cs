@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using AirlineReservationSystem.Repository;
+#endregion
 
 namespace AirlineReservationSystem.Services
 {
+    #region Admin Service
     public class AdminService
     {
         private readonly IAdminRepository _adminRepository;
@@ -34,6 +37,6 @@ namespace AirlineReservationSystem.Services
         {
             return _adminRepository.UpdateAdmin(admin);
         }
-
     }
+    #endregion
 }

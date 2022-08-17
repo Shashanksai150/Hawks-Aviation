@@ -82,6 +82,36 @@ namespace AirlineReservationSystem.Models
             set { _status = value; }
         }
 
+        Boolean _isCancelled;
+        public Boolean IsCancelled
+        {
+            get { return _isCancelled; }
+            set
+            {
+                _isCancelled = value;
+            }
+        }
+
+        Boolean _isCheckedIn;
+        public Boolean IsCheckedIn
+        {
+            get { return _isCheckedIn; }
+            set
+            {
+                _isCheckedIn = value;
+            }
+        }
+
+        Boolean _outdated;
+        public Boolean Outdated
+        {
+            get { return _outdated; }
+            set
+            {
+                _outdated = value;
+            }
+        }
+
         #endregion
     }
     #endregion

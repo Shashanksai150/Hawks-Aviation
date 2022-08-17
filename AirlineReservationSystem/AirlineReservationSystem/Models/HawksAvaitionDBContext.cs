@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AirlineReservationSystem.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace AirlineReservationSystem.Models
 {
@@ -21,5 +22,10 @@ namespace AirlineReservationSystem.Models
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<ExceptionLog> ExceptionLog { get; set; }
+
+        public virtual void sp_DeleteFlight()
+        {
+            //HawksAvaitionDBContext.ExecuteFunction("[dbo].[DeleteOldFlights]");
+        }
     }
 }

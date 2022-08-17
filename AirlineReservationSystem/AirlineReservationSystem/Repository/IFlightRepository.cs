@@ -1,7 +1,10 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Flight Interface
     public interface IFlightRepository
     {
         int AddNewFlight(Flights flight);
@@ -11,4 +14,5 @@ namespace AirlineReservationSystem.Repository
         int DeleteFlight(int flightno);
         List<Flights> SearchFlights(string start, string dest, DateTime arrival);
     }
+    #endregion
 }

@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using AirlineReservationSystem.Repository;
+#endregion
 
 namespace AirlineReservationSystem.Services
 {
+    #region Flight Service
     public class FlightService
     {
         private readonly IFlightRepository _flightRepository;
@@ -42,4 +45,5 @@ namespace AirlineReservationSystem.Services
             return _flightRepository.DeleteFlight(flightno);
         }
     }
+    #endregion
 }

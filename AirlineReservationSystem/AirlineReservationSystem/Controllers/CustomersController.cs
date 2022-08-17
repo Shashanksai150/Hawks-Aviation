@@ -62,7 +62,15 @@ namespace AirlineReservationSystem.Controllers
                 return Problem("Entity set 'CGAirwaysDbContext.CustomerContext'  is null.");
             }
             int val = _customerService.AddNewCustomer(customer);
-            if (val != 200)
+            if (val == 700)
+            {
+                return BadRequest("Username already taken!!");
+            }
+            else if (val == 750)
+            {
+                return BadRequest("Email account already present, please login!!");
+            }
+            else if (val != 200)
             {
                 return BadRequest();
             }

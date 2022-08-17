@@ -1,7 +1,10 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Booking Interface
     public interface IBookingRepository
     {
         int CreateNewBooking(Bookings bookings);
@@ -12,4 +15,5 @@ namespace AirlineReservationSystem.Repository
         int UpdateBooking(Bookings bookings);
         int CheckInBooking(int Id);
     }
+    #endregion
 }

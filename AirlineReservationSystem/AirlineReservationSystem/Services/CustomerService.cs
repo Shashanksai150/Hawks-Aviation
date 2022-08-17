@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using AirlineReservationSystem.Repository;
+#endregion
 
 namespace AirlineReservationSystem.Services
 {
+    #region Customer Service
     public class CustomerService
     {
         private readonly ICustomerRepository _customerRepository;
@@ -35,4 +38,5 @@ namespace AirlineReservationSystem.Services
             return _customerRepository.GetAllCustomers();
         }
     }
+    #endregion
 }

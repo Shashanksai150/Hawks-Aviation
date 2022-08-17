@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Customer Repository
     public class CustomerRepository : ICustomerRepository
     {
 
@@ -27,9 +30,27 @@ namespace AirlineReservationSystem.Repository
         {
             int response = StatusCodes.Status501NotImplemented;
             Users user = new Users();
-            //MailRequest mail = new MailRequest();
+            MailRequest mail = new MailRequest();
             try
             {
+                Customers customer1 = _dbContext.Customers
+                                        .AsNoTracking()
+                .FirstOrDefault(c => c.EmailId == customer.EmailId);
+                if (customer1 != null)
+                {
+                    response = 750;
+                    return response;
+                }
+
+                Customers customer2 = _dbContext.Customers
+                                        .AsNoTracking()
+                .FirstOrDefault(c => c.Username == customer.Username);
+                if (customer2 != null)
+                {
+                    response = 700;
+                    return response;
+                }
+
                 _dbContext.Customers.Add(customer);
                 _dbContext.SaveChanges();
                 user.Username = customer.Username;
@@ -42,18 +63,20 @@ namespace AirlineReservationSystem.Repository
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
                 response = StatusCodes.Status200OK;
-                //mail.ToEmail = customer.EmailId;
-                //mail.Subject = "Successful Registration, Hawk Aviations";
-                //string body = "Hello " + customer.FirstName + ", \n" + 
-                //    "You have successfully registered a new account in the Hawk Aviations." + 
-                //    "Please login into the account and book a flight to one of our many travel destinations." +
-                //    "\n \n Thanks and regards, \n"+
-                //    "Hawks Aviations.";
-                //mail.Body = body;
-                //_mailService.SendEmailAsync(mail);
+                mail.To = customer.EmailId;
+                mail.Subject = "Successful Registration, Hawk Aviations";
+                string body = "Hello " + customer.FirstName + ", \n" + 
+                    "You have successfully registered a new account in the Hawk Aviations." + 
+                    "Please login into the account and book a flight to one of our many travel destinations." +
+                    "\n \n Thanks and regards, \n"+
+                    "Hawks Aviations.";
+                mail.Body = body;
+                _mailService.SendEmail(mail);
             }
             catch (Exception ex)
             {
+                //_dbContext.Dispose();
+                //_dbContext.Database.CloseConnection();
                 //_exceptionServices.CreateLog(ex, null);
                 throw ex;
             }
@@ -129,7 +152,7 @@ namespace AirlineReservationSystem.Repository
         public int UpdateCustomer(Customers customer)
         {
             int response = StatusCodes.Status501NotImplemented;
-
+            MailRequest mail = new MailRequest();
             try
             {
                 Customers customer1 = _dbContext.Customers
@@ -142,8 +165,16 @@ namespace AirlineReservationSystem.Repository
 
                     _dbContext.SaveChanges();
                     response = StatusCodes.Status200OK;
+                    mail.To = customer.EmailId;
+                    mail.Subject = "Successfully Updated Profile, Hawk Aviations";
+                    string body = "Hello " + customer.FirstName + ", \n" +
+                        "You have successfully updated your account in the Hawk Aviations." +
+                        "Please login into the account and book a flight to one of our many travel destinations." +
+                        "\n \n Thanks and regards, \n" +
+                        "Hawks Aviations.";
+                    mail.Body = body;
+                    _mailService.SendEmail(mail);
                 }
-
                 else
                 {
                     response = StatusCodes.Status404NotFound;
@@ -204,10 +235,17 @@ namespace AirlineReservationSystem.Repository
 
         #endregion
 
+        #region ChangePasswordCustomer
+        /// <summary>
+        /// When this function is invoked we can change password
+        /// </summary>
+        /// <param name="creds"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
         public int ChangePasswordCustomer(Login creds, string newPassword)
         {
             int response = StatusCodes.Status501NotImplemented;
-
+            MailRequest mail = new MailRequest();
             try
             {
                 Customers customer = _dbContext.Customers
@@ -231,6 +269,15 @@ namespace AirlineReservationSystem.Repository
                     _dbContext.Users.Update(user);
                     _dbContext.SaveChanges();
                     response = StatusCodes.Status200OK;
+                    mail.To = customer.EmailId;
+                    mail.Subject = "Successfully Changed your Password, Hawk Aviations";
+                    string body = "Hello " + customer.FirstName + ", \n" +
+                        "You have successfully changed your account password in the Hawk Aviations. If it is not you please reset your password. " +
+                        "Please login into the account and book a flight to one of our many travel destinations." +
+                        "\n \n Thanks and regards, \n" +
+                        "Hawks Aviations.";
+                    mail.Body = body;
+                    _mailService.SendEmail(mail);
                 }
                 else
                 {
@@ -249,5 +296,7 @@ namespace AirlineReservationSystem.Repository
 
             return response;
         }
+        #endregion
     }
+#endregion
 }

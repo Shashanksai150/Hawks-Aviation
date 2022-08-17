@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using Microsoft.EntityFrameworkCore;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Airport Repository
     public class AirportRepository : IAirportRepository
     {
         private readonly HawksAvaitionDBContext _dbContext;
@@ -13,6 +16,13 @@ namespace AirlineReservationSystem.Repository
             _dbContext = dbContext;
             _exceptionServices = exceptionServices;
         }
+
+        #region AddNewAirport
+        /// <summary>
+        /// When this function is invoked we can add airports
+        /// </summary>
+        /// <param name="airports"></param>
+        /// <returns></returns>
         public int AddNewAirport(Airports airports)
         {
             int Response = StatusCodes.Status501NotImplemented;
@@ -36,6 +46,13 @@ namespace AirlineReservationSystem.Repository
             }
             return Response;
         }
+        #endregion
+
+        #region GetAllAirports
+        /// <summary>
+        /// When this function is invoked we can get all airports list
+        /// </summary>
+        /// <returns></returns>
         public List<Airports> GetAllAirports()
         {
             List<Airports> airports = null;
@@ -55,6 +72,14 @@ namespace AirlineReservationSystem.Repository
             }
             return airports;
         }
+        #endregion
+
+        #region GetAirportById
+        /// <summary>
+        /// When this function is invoked we can get airport by Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public Airports GetAirportById(string Id)
         {
             Airports airports;
@@ -75,7 +100,14 @@ namespace AirlineReservationSystem.Repository
             }
             return airports;
         }
+        #endregion
 
+        #region UpdateAirports
+        /// <summary>
+        /// When this function is invoked we can update the airport details
+        /// </summary>
+        /// <param name="airports"></param>
+        /// <returns></returns>
         public int UpdateAirports(Airports airports)
         {
             int response = StatusCodes.Status501NotImplemented;
@@ -107,5 +139,7 @@ namespace AirlineReservationSystem.Repository
             }
             return response;
         }
+        #endregion
     }
+    #endregion
 }

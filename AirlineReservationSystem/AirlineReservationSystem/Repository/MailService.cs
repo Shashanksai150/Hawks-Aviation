@@ -1,11 +1,15 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using MimeKit.Text;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Mail Service
     public class MailService : IMailService
     {
         private readonly IConfiguration _config;
@@ -14,36 +18,38 @@ namespace AirlineReservationSystem.Repository
         {
             _config = config;
         }
-        public async Task SendEmailAsync(MailRequest mailRequest)
+        #region SendEmail
+        public void SendEmail(MailRequest request)
         {
             var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_config.GetSection("Mail").Value);
-            email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
-            email.Subject = mailRequest.Subject;
-            var builder = new BodyBuilder();
-            if (mailRequest.Attachments != null)
-            {
-                byte[] fileBytes;
-                foreach (var file in mailRequest.Attachments)
-                {
-                    if (file.Length > 0)
-                    {
-                        using (var ms = new MemoryStream())
-                        {
-                            file.CopyTo(ms);
-                            fileBytes = ms.ToArray();
-                        }
-                        builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
-                    }
-                }
-            }
-            builder.HtmlBody = mailRequest.Body;
-            email.Body = builder.ToMessageBody();
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            email.To.Add(MailboxAddress.Parse(request.To));
+            email.Subject = request.Subject;
+            email.Date = DateTime.Now;
+            email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
+
             using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetSection("Host").Value, Int32.Parse(_config.GetSection("Port").Value), SecureSocketOptions.StartTls);
-            smtp.Authenticate(_config.GetSection("Mail").Value, _config.GetSection("Password").Value);
-            await smtp.SendAsync(email);
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            var username = _config.GetSection("EmailUsername").Value;
+            var password = _config.GetSection("EmailPassword").Value;
+            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
             smtp.Disconnect(true);
+
+            //var email = new MimeMessage();
+            //email.Sender = MailboxAddress.Parse("");
+            //email.To.Add(MailboxAddress.Parse(mailRequest.To));
+            //email.Subject = mailRequest.Subject;
+            //var builder = new BodyBuilder();
+            //builder.HtmlBody = mailRequest.Body;
+            //email.Body = builder.ToMessageBody();
+            //using var smtp = new SmtpClient();
+            //smtp.Connect("", 587, SecureSocketOptions.StartTls);
+            //smtp.Authenticate("", "");
+            //await smtp.SendAsync(email);
+            //smtp.Disconnect(true);
         }
+        #endregion
     }
+#endregion
 }

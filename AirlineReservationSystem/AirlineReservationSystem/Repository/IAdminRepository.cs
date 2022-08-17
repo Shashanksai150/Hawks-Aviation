@@ -1,7 +1,10 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Admin Interface
     public interface IAdminRepository
     {
         int AddNewAdmin(Admin admin);
@@ -9,4 +12,5 @@ namespace AirlineReservationSystem.Repository
         int UpdateAdmin(Admin admin);
         int ChangePasswordAdmin(Login creds, string newPassword);
     }
+    #endregion
 }

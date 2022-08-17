@@ -1,10 +1,13 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region MailService Interface
     public interface IMailService
     {
-        Task SendEmailAsync(MailRequest mailRequest);
-
+        void SendEmail(MailRequest mailRequest);
     }
+    #endregion
 }

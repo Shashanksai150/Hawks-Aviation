@@ -1,8 +1,12 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using AirlineReservationSystem.Repository;
+#endregion
+
 
 namespace AirlineReservationSystem.Services
 {
+    #region Airport Service
     public class AirportService
     {
         private readonly IAirportRepository _airportRepository;
@@ -32,4 +36,5 @@ namespace AirlineReservationSystem.Services
             return _airportRepository.GetAirportById(Id);
         }
     }
+    #endregion
 }

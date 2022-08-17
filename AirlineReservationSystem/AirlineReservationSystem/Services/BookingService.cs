@@ -1,8 +1,11 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
 using AirlineReservationSystem.Repository;
+#endregion
 
 namespace AirlineReservationSystem.Services
 {
+    #region Booking Service
     public class BookingService
     {
 
@@ -48,4 +51,5 @@ namespace AirlineReservationSystem.Services
             return _bookingRepository.GetBookingById(Id);
         }
     }
+    #endregion
 }

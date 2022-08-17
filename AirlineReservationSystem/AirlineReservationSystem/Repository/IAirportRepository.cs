@@ -1,7 +1,10 @@
-﻿using AirlineReservationSystem.Models;
+﻿#region Using Namespaces
+using AirlineReservationSystem.Models;
+#endregion
 
 namespace AirlineReservationSystem.Repository
 {
+    #region Airport Interface
     public interface IAirportRepository
     {
         int AddNewAirport(Airports airports);
@@ -9,4 +12,5 @@ namespace AirlineReservationSystem.Repository
         Airports GetAirportById(string Id);
         int UpdateAirports(Airports airports);
     }
+    #endregion
 }

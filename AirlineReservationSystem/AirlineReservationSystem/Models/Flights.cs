@@ -88,5 +88,35 @@ namespace AirlineReservationSystem.Models
             get { return _fare; } 
             set { _fare = value; }
         }
+
+        Boolean _isActive;
+        public Boolean IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                _isActive = value;
+            }
+        }
+
+        Boolean _outdated;
+        public Boolean Outdated
+        {
+            get { return _outdated; }
+            set
+            {
+                _outdated = value;
+            }
+        }
+
+        Boolean _cancelled;
+        public Boolean Cancelled
+        {
+            get { return _cancelled; }
+            set
+            {
+                _cancelled = value;
+            }
+        }
     }
 }
