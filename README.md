@@ -18,4 +18,4 @@ Design Pattern:
 3. SQL SERVER - SQL server is used to store data to the database.
 
 
-Here is the project demo: https://www.loom.com/share/b79ce9ac56a649aa85b36e46f58cd63d
+Here is the project video demo: https://www.loom.com/share/b79ce9ac56a649aa85b36e46f58cd63d
